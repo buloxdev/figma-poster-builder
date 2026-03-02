@@ -21,6 +21,20 @@ That means:
 - reusable screenshot assets via `imageRef`
 - easier iteration for App Store screenshots, Instagram stories, and similar promotional layouts
 
+## Screenshots
+
+### Plugin UI
+
+![Plugin UI](docs/screenshots/plugin-ui.png)
+
+### Asset Registration
+
+![Asset Registration](docs/screenshots/asset-registration.png)
+
+### Rendered Poster
+
+![Rendered Poster](docs/screenshots/rendered-poster.png)
+
 ## Current Capabilities
 
 - Create a frame with a background fill
