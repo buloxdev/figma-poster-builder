@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Figma Poster Builder</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0f172a;
+        --panel: #111827;
+        --panel-border: #243041;
+        --text: #e5edf9;
+        --muted: #94a3b8;
+        --accent: #38bdf8;
+        --danger: #f87171;
+        --success: #4ade80;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 16px;
+        background:
+          radial-gradient(circle at top right, rgba(56, 189, 248, 0.14), transparent 32%),
+          linear-gradient(180deg, #0b1120 0%, var(--bg) 100%);
+        color: var(--text);
+        font: 13px/1.45 Inter, system-ui, sans-serif;
+      }
+
+      .panel {
+        background: rgba(17, 24, 39, 0.94);
+        border: 1px solid var(--panel-border);
+        border-radius: 16px;
+        padding: 14px;
+        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      }
+
+      h1 {
+        margin: 0 0 6px;
+        font-size: 18px;
+      }
+
+      p {
+        margin: 0 0 12px;
+        color: var(--muted);
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 360px;
+        resize: vertical;
+        border: 1px solid #334155;
+        border-radius: 12px;
+        padding: 12px;
+        background: #020617;
+        color: var(--text);
+        font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .asset-row {
+        display: flex;
+        gap: 8px;
+        margin: 12px 0 0;
+      }
+
+      .asset-list {
+        margin-top: 12px;
+        border: 1px solid var(--panel-border);
+        border-radius: 12px;
+        background: rgba(2, 6, 23, 0.76);
+        overflow: hidden;
+      }
+
+      .asset-list-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--panel-border);
+      }
+
+      .asset-items {
+        max-height: 144px;
+        overflow: auto;
+      }
+
+      .asset-item {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 12px;
+        border-top: 1px solid rgba(36, 48, 65, 0.7);
+      }
+
+      .asset-item:first-child {
+        border-top: 0;
+      }
+
+      .asset-meta {
+        min-width: 0;
+      }
+
+      .asset-ref {
+        font-weight: 700;
+      }
+
+      .asset-detail {
+        color: var(--muted);
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        border: 1px solid #334155;
+        border-radius: 10px;
+        padding: 10px 12px;
+        background: #020617;
+        color: var(--text);
+        font: inherit;
+      }
+
+      button {
+        appearance: none;
+        border: 0;
+        border-radius: 10px;
+        padding: 10px 14px;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .primary {
+        background: linear-gradient(135deg, #0ea5e9, var(--accent));
+        color: #03111d;
+      }
+
+      .secondary {
+        background: #1e293b;
+        color: var(--text);
+      }
+
+      .status {
+        min-height: 20px;
+        margin-top: 12px;
+        color: var(--muted);
+      }
+
+      .status.error {
+        color: var(--danger);
+      }
+
+      .status.success {
+        color: var(--success);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="panel">
+      <h1>Poster Builder</h1>
+      <p>Paste JSON from the prompt contract and render editable Figma layers.</p>
+      <div class="asset-row">
+        <input id="imageRef" type="text" placeholder="imageRef, e.g. hybrid_dashboard">
+        <button class="secondary" id="registerAsset">Register Selection</button>
+      </div>
+      <div class="asset-list">
+        <div class="asset-list-header">
+          <strong>Registered Assets</strong>
+          <button class="secondary" id="refreshAssets">Refresh</button>
+        </div>
+        <div class="asset-items" id="assetItems"></div>
+      </div>
+      <textarea id="payload" spellcheck="false"></textarea>
+      <div class="actions">
+        <button class="primary" id="render">Render Poster</button>
+        <button class="secondary" id="sample">Load Sample</button>
+        <button class="secondary" id="cancel">Close</button>
+      </div>
+      <div class="status" id="status"></div>
+    </div>
+
+    <script>
+      const samplePayload = {
+        schemaVersion: 1,
+        name: "Hybrid Build Story",
+        canvas: {
+          preset: "instagram_story",
+          width: 1080,
+          height: 1920,
+          background: "#09111F"
+        },
+        safeAreas: {
+          top: 140,
+          right: 80,
+          bottom: 180,
+          left: 80
+        },
+        layers: [
+          {
+            type: "ellipse",
+            name: "Ambient Blue Glow",
+            x: 160,
+            y: 120,
+            width: 760,
+            height: 760,
+            color: "#2563EB",
+            opacity: 0.18
+          },
+          {
+            type: "text",
+            name: "Story Headline",
+            content: "Train hard.\nRecover better.\nStay consistent.",
+            font: "Inter",
+            weight: "Bold",
+            size: 94,
+            color: "#F8FAFC",
+            x: 80,
+            y: 180,
+            width: 860,
+            align: "left",
+            letterSpacing: -2,
+            lineHeight: 100
+          },
+          {
+            type: "text",
+            name: "Support Copy",
+            content: "Hybrid Build helps you balance load, recovery, and progress without guessing.",
+            font: "Inter",
+            weight: "Regular",
+            size: 32,
+            color: "#9FB0D1",
+            x: 80,
+            y: 520,
+            width: 840,
+            align: "left",
+            lineHeight: 46
+          },
+          {
+            type: "rect",
+            name: "Bottom Card",
+            x: 80,
+            y: 1220,
+            width: 920,
+            height: 520,
+            color: "#101A2B",
+            opacity: 1,
+            cornerRadius: 36
+          },
+          {
+            type: "text",
+            name: "Card Title",
+            content: "Built for real life",
+            font: "Inter",
+            weight: "SemiBold",
+            size: 42,
+            color: "#F8FAFC",
+            x: 128,
+            y: 1280,
+            width: 760,
+            align: "left"
+          },
+          {
+            type: "line",
+            name: "Card Divider",
+            x: 128,
+            y: 1360,
+            width: 824,
+            color: "#243247",
+            strokeWeight: 2
+          }
+        ]
+      };
+
+      const imageRefInput = document.getElementById("imageRef");
+      const assetItems = document.getElementById("assetItems");
+      const payload = document.getElementById("payload");
+      const status = document.getElementById("status");
+
+      document.getElementById("sample").addEventListener("click", () => {
+        payload.value = JSON.stringify(samplePayload, null, 2);
+        setStatus("Sample JSON loaded.", "success");
+      });
+
+      document.getElementById("render").addEventListener("click", () => {
+        parent.postMessage(
+          {
+            pluginMessage: {
+              type: "render-poster",
+              payload: payload.value
+            }
+          },
+          "*"
+        );
+        setStatus("Rendering...", "");
+      });
+
+      document.getElementById("registerAsset").addEventListener("click", () => {
+        parent.postMessage(
+          {
+            pluginMessage: {
+              type: "register-asset",
+              imageRef: imageRefInput.value.trim()
+            }
+          },
+          "*"
+        );
+      });
+
+      document.getElementById("refreshAssets").addEventListener("click", () => {
+        parent.postMessage({ pluginMessage: { type: "refresh-assets" } }, "*");
+      });
+
+      document.getElementById("cancel").addEventListener("click", () => {
+        parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
+      });
+
+      window.onmessage = (event) => {
+        const msg = event.data.pluginMessage;
+        if (!msg) {
+          return;
+        }
+
+        if (msg.type === "render-error") {
+          setStatus(msg.message, "error");
+        }
+
+        if (msg.type === "render-success") {
+          setStatus(msg.message, "success");
+        }
+
+        if (msg.type === "asset-registry") {
+          renderAssetRegistry(msg.assets || {});
+          if (msg.message) {
+            setStatus(msg.message, "success");
+          }
+        }
+      };
+
+      payload.value = JSON.stringify(samplePayload, null, 2);
+      parent.postMessage({ pluginMessage: { type: "ui-ready" } }, "*");
+
+      function setStatus(message, kind) {
+        status.textContent = message;
+        status.className = `status${kind ? ` ${kind}` : ""}`;
+      }
+
+      function renderAssetRegistry(assets) {
+        const entries = Object.entries(assets);
+        if (!entries.length) {
+          assetItems.innerHTML = '<div class="asset-item"><div class="asset-detail">No assets registered yet.</div></div>';
+          return;
+        }
+
+        assetItems.innerHTML = "";
+        for (const [ref, asset] of entries) {
+          const row = document.createElement("div");
+          row.className = "asset-item";
+          row.innerHTML = `
+            <div class="asset-meta">
+              <div class="asset-ref">${escapeHtml(ref)}</div>
+              <div class="asset-detail">${escapeHtml(asset.name)} · ${escapeHtml(asset.type)} · ${asset.width}x${asset.height}</div>
+            </div>
+          `;
+
+          const removeButton = document.createElement("button");
+          removeButton.className = "secondary";
+          removeButton.textContent = "Remove";
+          removeButton.addEventListener("click", () => {
+            parent.postMessage(
+              {
+                pluginMessage: {
+                  type: "remove-asset",
+                  imageRef: ref
+                }
+              },
+              "*"
+            );
+          });
+
+          row.appendChild(removeButton);
+          assetItems.appendChild(row);
+        }
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .split("&").join("&amp;")
+          .split("<").join("&lt;")
+          .split(">").join("&gt;")
+          .split('"').join("&quot;")
+          .split("'").join("&#39;");
+      }
+    </script>
+  </body>
+</html>

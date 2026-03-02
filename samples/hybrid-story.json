@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "name": "Hybrid Build Story",
+  "canvas": {
+    "preset": "instagram_story",
+    "width": 1080,
+    "height": 1920,
+    "background": "#09111F"
+  },
+  "safeAreas": {
+    "top": 140,
+    "right": 80,
+    "bottom": 180,
+    "left": 80
+  },
+  "layers": [
+    {
+      "type": "ellipse",
+      "name": "Ambient Blue Glow",
+      "x": 160,
+      "y": 120,
+      "width": 760,
+      "height": 760,
+      "color": "#2563EB",
+      "opacity": 0.18
+    },
+    {
+      "type": "text",
+      "name": "Story Headline",
+      "content": "Train hard.\nRecover better.\nStay consistent.",
+      "font": "Inter",
+      "weight": "Bold",
+      "size": 94,
+      "color": "#F8FAFC",
+      "x": 80,
+      "y": 180,
+      "width": 860,
+      "align": "left",
+      "letterSpacing": -2,
+      "lineHeight": 100
+    },
+    {
+      "type": "text",
+      "name": "Support Copy",
+      "content": "Hybrid Build helps you balance load, recovery, and progress without guessing.",
+      "font": "Inter",
+      "weight": "Regular",
+      "size": 32,
+      "color": "#9FB0D1",
+      "x": 80,
+      "y": 520,
+      "width": 840,
+      "align": "left",
+      "lineHeight": 46
+    },
+    {
+      "type": "rect",
+      "name": "Bottom Card",
+      "x": 80,
+      "y": 1220,
+      "width": 920,
+      "height": 520,
+      "color": "#101A2B",
+      "opacity": 1,
+      "cornerRadius": 36
+    },
+    {
+      "type": "text",
+      "name": "Card Title",
+      "content": "Built for real life",
+      "font": "Inter",
+      "weight": "SemiBold",
+      "size": 42,
+      "color": "#F8FAFC",
+      "x": 128,
+      "y": 1280,
+      "width": 760,
+      "align": "left"
+    },
+    {
+      "type": "line",
+      "name": "Card Divider",
+      "x": 128,
+      "y": 1360,
+      "width": 824,
+      "color": "#243247",
+      "strokeWeight": 2
+    }
+  ]
+}

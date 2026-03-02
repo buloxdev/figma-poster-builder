@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "name": "Hybrid Build App Store Screenshot",
+  "canvas": {
+    "preset": "app_store_iphone_15_pro_max",
+    "width": 1290,
+    "height": 2796,
+    "background": "#0B1020"
+  },
+  "safeAreas": {
+    "top": 180,
+    "right": 96,
+    "bottom": 220,
+    "left": 96
+  },
+  "layers": [
+    {
+      "type": "ellipse",
+      "name": "Ambient Blue Glow",
+      "x": 120,
+      "y": 220,
+      "width": 1050,
+      "height": 1050,
+      "color": "#2563EB",
+      "opacity": 0.12
+    },
+    {
+      "type": "text",
+      "name": "Hero Headline",
+      "content": "Training that\nactually adapts\nto your life.",
+      "font": "Inter",
+      "weight": "Bold",
+      "size": 124,
+      "color": "#F8FAFC",
+      "x": 96,
+      "y": 190,
+      "width": 1098,
+      "align": "left",
+      "letterSpacing": -3,
+      "lineHeight": 132
+    },
+    {
+      "type": "text",
+      "name": "Support Copy",
+      "content": "Hybrid Build balances training load, recovery, and consistency so you can keep progressing.",
+      "font": "Inter",
+      "weight": "Regular",
+      "size": 42,
+      "color": "#A8B3CF",
+      "x": 96,
+      "y": 650,
+      "width": 960,
+      "align": "left",
+      "lineHeight": 58
+    },
+    {
+      "type": "image",
+      "name": "App Screenshot",
+      "x": 165,
+      "y": 1010,
+      "width": 960,
+      "height": 1420,
+      "cornerRadius": 56,
+      "imageRef": "hybrid_dashboard"
+    }
+  ]
+}
