@@ -61,7 +61,7 @@ That means:
 2. Open the Figma desktop app.
 3. Open any design file.
 4. In the Mac menu bar, go to `Plugins -> Development -> Import plugin from manifest...`
-5. Select [manifest.json](/Users/anthonyaguilar/Documents/figma_plugin/manifest.json)
+5. Select [`manifest.json`](./manifest.json)
 6. Run `Plugins -> Development -> Figma Poster Builder`
 
 ## How To Use
@@ -140,7 +140,7 @@ If you want to explain the plugin to other people, this is the short version:
 
 ## Prompt Contract
 
-The LLM schema contract lives in [codex-poster-prompt.md](/Users/anthonyaguilar/Documents/figma_plugin/codex-poster-prompt.md).
+The LLM schema contract lives in [`codex-poster-prompt.md`](./codex-poster-prompt.md).
 
 That file describes:
 
@@ -152,17 +152,17 @@ That file describes:
 
 ## Sample Files
 
-- [samples/hybrid-story.json](/Users/anthonyaguilar/Documents/figma_plugin/samples/hybrid-story.json)
-- [samples/hybrid-app-store.json](/Users/anthonyaguilar/Documents/figma_plugin/samples/hybrid-app-store.json)
+- [`samples/hybrid-story.json`](./samples/hybrid-story.json)
+- [`samples/hybrid-app-store.json`](./samples/hybrid-app-store.json)
 
 ## Repository Structure
 
-- [manifest.json](/Users/anthonyaguilar/Documents/figma_plugin/manifest.json): Figma plugin manifest
-- [code.js](/Users/anthonyaguilar/Documents/figma_plugin/code.js): plugin runtime and embedded UI
-- [ui.html](/Users/anthonyaguilar/Documents/figma_plugin/ui.html): original standalone UI prototype
-- [codex-poster-prompt.md](/Users/anthonyaguilar/Documents/figma_plugin/codex-poster-prompt.md): LLM prompt contract
-- [docs/plugin-architecture.md](/Users/anthonyaguilar/Documents/figma_plugin/docs/plugin-architecture.md): implementation notes
-- [samples/](/Users/anthonyaguilar/Documents/figma_plugin/samples): sample payloads
+- [`manifest.json`](./manifest.json): Figma plugin manifest
+- [`code.js`](./code.js): plugin runtime and embedded UI
+- [`ui.html`](./ui.html): original standalone UI prototype
+- [`codex-poster-prompt.md`](./codex-poster-prompt.md): LLM prompt contract
+- [`docs/plugin-architecture.md`](./docs/plugin-architecture.md): implementation notes
+- [`samples/`](./samples): sample payloads
 
 ## Limitations
 
@@ -176,7 +176,7 @@ That file describes:
 
 If you publish this project, include:
 
-- [LICENSE](/Users/anthonyaguilar/Documents/figma_plugin/LICENSE)
+- [`LICENSE`](./LICENSE)
 - clear setup instructions
 - the prompt contract
 - a few screenshots or demo GIFs

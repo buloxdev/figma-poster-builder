@@ -3,14 +3,14 @@
 ## Development Notes
 
 - This plugin is intended for the Figma desktop app.
-- The runtime entrypoint is [code.js](/Users/anthonyaguilar/Documents/figma_plugin/code.js).
+- The runtime entrypoint is [`code.js`](./code.js).
 - The plugin currently uses an embedded UI string in `code.js` for compatibility with raw manifest imports.
-- [ui.html](/Users/anthonyaguilar/Documents/figma_plugin/ui.html) is kept as a standalone UI reference/prototype.
+- [`ui.html`](./ui.html) is kept as a standalone UI reference/prototype.
 
 ## Local Testing
 
 1. Open Figma desktop.
-2. Import the plugin from [manifest.json](/Users/anthonyaguilar/Documents/figma_plugin/manifest.json).
+2. Import the plugin from [`manifest.json`](./manifest.json).
 3. Run the plugin from `Plugins -> Development`.
 4. Test both:
    - text-and-shape rendering
@@ -30,5 +30,5 @@ Useful improvements include:
 ## Pull Requests
 
 - Keep the JSON contract stable unless the change is intentional and documented.
-- Update [README.md](/Users/anthonyaguilar/Documents/figma_plugin/README.md) if the workflow changes.
-- Update [codex-poster-prompt.md](/Users/anthonyaguilar/Documents/figma_plugin/codex-poster-prompt.md) if schema fields change.
+- Update [`README.md`](./README.md) if the workflow changes.
+- Update [`codex-poster-prompt.md`](./codex-poster-prompt.md) if schema fields change.
